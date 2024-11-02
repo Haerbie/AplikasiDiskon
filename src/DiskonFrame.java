@@ -33,8 +33,9 @@ public class DiskonFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         kodeKuponTextField = new javax.swing.JTextField();
         diskonSlider = new javax.swing.JSlider();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        riwayatTextArea = new javax.swing.JTextArea();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -149,16 +150,23 @@ public class DiskonFrame extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(10, 10, 10, 10);
         jPanel2.add(diskonSlider, gridBagConstraints);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        riwayatTextArea.setColumns(20);
+        riwayatTextArea.setRows(5);
+        jScrollPane1.setViewportView(riwayatTextArea);
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 7;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        jPanel2.add(jScrollPane2, gridBagConstraints);
+        gridBagConstraints.ipadx = 46;
+        gridBagConstraints.ipady = 37;
+        jPanel2.add(jScrollPane1, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        jPanel2.add(jLabel7, gridBagConstraints);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -167,16 +175,20 @@ public class DiskonFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         try {
+            // Cek apakah hargaAsliTextField kosong atau tidak valid
+            if (hargaAsliTextField.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Silakan masukkan harga asli.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Ambil harga asli dari JTextField
             double hargaAsli = Double.parseDouble(hargaAsliTextField.getText());
 
-            // Tentukan diskon persentase
+            // Tentukan diskon persentase dari JSlider atau JComboBox
             int diskonPersen;
-            if (persentaseDiskonComboBox.getSelectedItem() != null) {
-                // Gunakan nilai dari JSlider jika ada
+            if (diskonSlider.getValue() > 0) {
                 diskonPersen = diskonSlider.getValue();
             } else {
-                // Jika JSlider tidak diubah, gunakan JComboBox
                 String diskonStr = (String) persentaseDiskonComboBox.getSelectedItem();
                 diskonPersen = Integer.parseInt(diskonStr.replace("%", ""));
             }
@@ -184,7 +196,7 @@ public class DiskonFrame extends javax.swing.JFrame {
             // Ambil kode kupon dari JTextField
             String kodeKupon = kodeKuponTextField.getText().trim();
 
-            // Tambahkan diskon tambahan jika kode kupon valid
+            // Tambahan diskon jika kode kupon valid
             if (kodeKupon.equalsIgnoreCase("DISKON10")) {
                 diskonPersen += 10;
             } else if (!kodeKupon.isEmpty()) {
@@ -195,9 +207,16 @@ public class DiskonFrame extends javax.swing.JFrame {
             double penghematan = hargaAsli * diskonPersen / 100;
             double hargaAkhir = hargaAsli - penghematan;
 
-            // Tampilkan hasil
+            // Tampilkan hasil pada JTextField
             penghematanTextField.setText(String.valueOf(penghematan));
             hargaAkhirTextField.setText(String.valueOf(hargaAkhir));
+
+            // Tambahkan hasil ke riwayat
+            String hasilRiwayat = "Harga Asli: " + hargaAsli +
+                                  ", Diskon: " + diskonPersen + "%" +
+                                  ", Penghematan: " + penghematan +
+                                  ", Harga Akhir: " + hargaAkhir + "\n";
+            riwayatTextArea.append(hasilRiwayat);
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Masukkan nilai yang valid.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -210,7 +229,12 @@ public class DiskonFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_persentaseDiskonComboBoxItemStateChanged
 
     private void diskonSliderStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_diskonSliderStateChanged
-        jButton1ActionPerformed(null);
+        // Update label persentase sesuai dengan nilai slider
+        int sliderValue = diskonSlider.getValue();
+        jLabel7.setText("Persentase Diskon: " + sliderValue + "%");
+
+        // Hitung ulang harga berdasarkan perubahan slider
+        jButton1ActionPerformed(null); // Menggunakan metode hitung ulang
     }//GEN-LAST:event_diskonSliderStateChanged
 
     /**
@@ -259,12 +283,13 @@ public class DiskonFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField kodeKuponTextField;
     private javax.swing.JTextField penghematanTextField;
     private javax.swing.JComboBox<String> persentaseDiskonComboBox;
+    private javax.swing.JTextArea riwayatTextArea;
     // End of variables declaration//GEN-END:variables
 }
