@@ -30,6 +30,8 @@ public class DiskonFrame extends javax.swing.JFrame {
         penghematanTextField = new javax.swing.JTextField();
         persentaseDiskonComboBox = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
+        jLabel6 = new javax.swing.JLabel();
+        kodeKuponTextField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,12 +112,27 @@ public class DiskonFrame extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
         gridBagConstraints.ipadx = 25;
         gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
         jPanel2.add(jButton1, gridBagConstraints);
+
+        jLabel6.setText("Kode Kupon");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(jLabel6, gridBagConstraints);
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 1;
+        gridBagConstraints.gridy = 4;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
+        gridBagConstraints.ipadx = 25;
+        gridBagConstraints.insets = new java.awt.Insets(20, 20, 20, 20);
+        jPanel2.add(kodeKuponTextField, gridBagConstraints);
 
         getContentPane().add(jPanel2, java.awt.BorderLayout.CENTER);
 
@@ -127,9 +144,19 @@ public class DiskonFrame extends javax.swing.JFrame {
             // Ambil harga asli dari JTextField
             double hargaAsli = Double.parseDouble(hargaAsliTextField.getText());
 
-            // Ambil persentase diskon yang dipilih
+            // Ambil persentase diskon yang dipilih dari JComboBox
             String diskonStr = (String) persentaseDiskonComboBox.getSelectedItem();
             int diskonPersen = Integer.parseInt(diskonStr.replace("%", ""));
+
+            // Ambil kode kupon dari JTextField
+            String kodeKupon = kodeKuponTextField.getText().trim();
+
+            // Tambahan diskon jika kode kupon valid
+            if (kodeKupon.equalsIgnoreCase("DISKON10")) {
+                diskonPersen += 10; // Tambahkan 10% diskon tambahan
+            } else if (!kodeKupon.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Kode kupon tidak valid.", "Info", JOptionPane.INFORMATION_MESSAGE);
+            }
 
             // Hitung penghematan dan harga akhir
             double penghematan = hargaAsli * diskonPersen / 100;
@@ -193,8 +220,10 @@ public class DiskonFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField kodeKuponTextField;
     private javax.swing.JTextField penghematanTextField;
     private javax.swing.JComboBox<String> persentaseDiskonComboBox;
     // End of variables declaration//GEN-END:variables
