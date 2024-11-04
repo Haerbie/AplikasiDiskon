@@ -238,7 +238,6 @@ public class DiskonFrame extends javax.swing.JFrame {
 
     private void persentaseDiskonComboBoxItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_persentaseDiskonComboBoxItemStateChanged
         if (evt.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
-            jButton1ActionPerformed(null);
         }
     }//GEN-LAST:event_persentaseDiskonComboBoxItemStateChanged
 
@@ -246,9 +245,6 @@ public class DiskonFrame extends javax.swing.JFrame {
         // Update label persentase sesuai dengan nilai slider
         int sliderValue = diskonSlider.getValue();
         jLabel7.setText("Persentase Diskon: " + sliderValue + "%");
-
-        // Hitung ulang harga berdasarkan perubahan slider
-        jButton1ActionPerformed(null); // Menggunakan metode hitung ulang
     }//GEN-LAST:event_diskonSliderStateChanged
 
     /**
