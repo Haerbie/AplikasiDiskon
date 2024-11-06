@@ -127,7 +127,8 @@ Menyediakan riwayat perhitungan diskon yang telah dilakukan untuk membantu pengg
             riwayatTextArea.append(hasilRiwayat);
 ```
 ## 6. Tampilan Aplikasi Saat di Run
-![TampilanKonversiSuhu](https://github.com/user-attachments/assets/5402b1e4-6907-43f8-85a9-78c5e1ee7e63)
+
+![TampilanDiskon](https://github.com/user-attachments/assets/2e924e34-938b-4c8a-8389-59a74edac539)
 
 ## 7. Indikator Penilaian
 
